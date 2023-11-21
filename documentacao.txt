@@ -1,0 +1,3 @@
+Construçao da 1 PPT da compass UOL
+	Aqui se encontra o passo a passo de como a atividade individual proposta foi contruida,
+primeiramente foi contruido uma instancia EC2 na AWS com Linux 2 baseado no sistema Unix, usando 
