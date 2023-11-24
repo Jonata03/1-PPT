@@ -1,5 +1,12 @@
 Construçao da 1 PPT da compass UOL
-	Aqui se encontra o passo a passo de como a atividade individual proposta foi contruida,
-primeiramente foi contruido uma instancia EC2 na AWS com imagem Linux 2 baseado no sistema Unix, familia t3.small,16GB de SSD,
-1 elastic IP, com security group pra portas 22,11,2049,80 e 443.
+    Aqui se encontra o passo a passo de como a atividade individual proposta foi contruida.
+    
+    Primeiramente foi contruido uma instancia EC2 na AWS com imagem Linux 2 baseado no
+sistema Unix, familia t3.small,16GB de SSD, 1 elastic IP, com security group com regras de
+entrada e saida para as portas 22,11,2049,80 e 443, com acesso ipv4 livre, ou seja, 0.0.0.0/0.
+   
+    O NFS é um servidor de compartilhamento de diretorios e arquivos com computadores da rede,
+ de acesso remoto como se estivesse armazenado localmente. A seguir vera a criação tanto do 
+servidor.
+
 
