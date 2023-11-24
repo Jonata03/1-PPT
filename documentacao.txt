@@ -1,12 +1,52 @@
-Construçao da 1 PPT da compass UOL
-    Aqui se encontra o passo a passo de como a atividade individual proposta foi contruida.
-    
-    Primeiramente foi contruido uma instancia EC2 na AWS com imagem Linux 2 baseado no
-sistema Unix, familia t3.small,16GB de SSD, 1 elastic IP, com security group com regras de
+Construção da 1° PPT da compass UOL:
+	Aqui se encontra o passo a passo de como a atividade individual proposta foi construída.
+	
+	AWS:
+    	Primeiramente foi construido uma instancia EC2 na AWS com imagem Linux 2 baseado no
+sistema Unix, família t3.small, 16GB de SSD, 1 elastic IP, com security group com regras de
 entrada e saida para as portas 22,11,2049,80 e 443, com acesso ipv4 livre, ou seja, 0.0.0.0/0.
-   
-    O NFS é um servidor de compartilhamento de diretorios e arquivos com computadores da rede,
- de acesso remoto como se estivesse armazenado localmente. A seguir vera a criação tanto do 
-servidor.
 
+	NFS, oque é?
+	Resumidamente, o NFS é um servidor de compartilhamento de diretórios e arquivos com 
+	computadores da rede, de acesso remoto como se estivesse armazenado localmente. 
+	
+	obs:todos os comando a seguir foram feitos com o usuário root.
+	
+	Configuração do server-side NFS.
+	
+	yum update
+		atualiza os pacotes do sistema.
+	
+	yum install nfs-utils
+		instala todos os componentes necessários pra rodar um servidor nfs na sua máquina.
+	
+	mkdir /pasta-compartilhada
+		cria a pasta que sera compartilhada pelo servidor nfs.
+	
+	echo "/pasta-compartilhada 10.0.0.0(rw,sync,no_subtree_check)" | sudo tee -a /etc/exports
+		"echo": cria uma string de texto representando a configuração do nfs;
+		
+		"/pasta-compartilhada": específica o caminho do diretório que será compartilhado;
+		
+		"10.0.0.0": define a faixa de ip que poderá se conectar ao servidor;
+		
+		"(rw,sync,no_subtree_check)": define as permissões e opções para o compartilhamento.
+			"rw" é a permissão de leitura e gravação. "sync", o servidor repondera os pedidos 
+		dos clientes apenas depois que os dados forem gravados no disco, porem, afeta o desempenho. 
+		"no_subtree_check", desativa a verificação de subdiretórios, podendo melhorar o desempenho,
+		porem menos seguro se os diretórios tiverem permissões diferentes.
+		
+		"| sudo tee -a /etc/exports":direciona a saída do comando "echo" para o arquivo "/etc/exports", 
+		o "tee" é usado pra escrever a saída no arquivo e no terminal, "-a" indica ao "tee" que deve 
+		fazer um append ao arquivo existente.
+		
+	"exports-arv"
+		
+	"systemctl restart nfs-server"
+		reinicia o servidor nfs.  
+		
+	systemctl enable nfs-server 
+		ativa o servidor toda vez que o sistema é iniciado.
+		
+	configuração do client-side NFS.
 
