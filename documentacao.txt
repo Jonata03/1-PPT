@@ -10,18 +10,18 @@ entrada e saida para as portas 22,11,2049,80 e 443, com acesso ipv4 livre, ou se
 	Resumidamente, o NFS é um servidor de compartilhamento de diretórios e arquivos com 
 	computadores da rede, de acesso remoto como se estivesse armazenado localmente. 
 	
-	obs:todos os comando a seguir foram feitos com o usuário root.
+	Obs:todos os comando a seguir foram feitos com o usuário root.
 	
 	Configuração do server-side NFS.
 	
 	yum update
-		atualiza os pacotes do sistema.
+		Atualiza os pacotes do sistema.
 	
 	yum install nfs-utils
-		instala todos os componentes necessários pra rodar um servidor nfs na sua máquina.
+		Instala todos os componentes necessários pra rodar um servidor nfs na sua máquina.
 	
 	mkdir /pasta-compartilhada
-		cria a pasta que sera compartilhada pelo servidor nfs.
+		Cria a pasta que sera compartilhada pelo servidor nfs.
 	
 	echo "/pasta-compartilhada 10.0.0.0(rw,sync,no_subtree_check)" | sudo tee -a /etc/exports
 		"echo": cria uma string de texto representando a configuração do nfs;
@@ -40,14 +40,28 @@ entrada e saida para as portas 22,11,2049,80 e 443, com acesso ipv4 livre, ou se
 		o "tee" é usado pra escrever a saída no arquivo e no terminal, "-a" indica ao "tee" que deve 
 		fazer um append ao arquivo existente.
 		
-	"exports-arv"
+	"exports -rv"
+		"exportfs" gerencia as exportações NFS do sistema, "-rv" indicam ao exportfs para exibir as exportações
+		de forma verbosa e recarregar a lista de exportação do arquivo "etc/exports" o "-r" tambem é usado
+		para aplicar alterações no arquivo sem reiniciar o serviço NFS.
 		
 	"systemctl restart nfs-server"
-		reinicia o servidor nfs.  
+		Reinicia o servidor nfs.  
 		
-	systemctl enable nfs-server 
-		ativa o servidor toda vez que o sistema é iniciado.
-		
+	"systemctl enable nfs-server" 
+		Ativa o servidor toda vez que o sistema é iniciado.
+
+
 	configuração do client-side NFS.
+	"mkdir /nfs_compartilhado"
+		Cria um diretorio com o nome de "nfs_compartilhado" nas pasta /
+
+	"sudo mount -t nfs 10.0.7.199:/nfs_server/jonata_nery /nfs_compartilhado/"
+		"mount" monta um sistema de arquivos no diretorio especificado,  "-t nfs" especifica que 
+		tipo de sistema sera montado, "10.0.7.199:/nfs_server/jonata_nery" indica o ip onde 
+		se encontra o servidor nfs e qual pasta ele esta expontando, "/nfs_compartilhado/" indica 
+		o ponto de montagem local onde o sistema sera acessivel.
+		
+	Confirando o servidor apache.
 	configurando o script.
 	subindo pro github o a documentação do projeto.
