@@ -49,4 +49,5 @@ entrada e saida para as portas 22,11,2049,80 e 443, com acesso ipv4 livre, ou se
 		ativa o servidor toda vez que o sistema é iniciado.
 		
 	configuração do client-side NFS.
-
+	configurando o script.
+	subindo pro github o a documentação do projeto.
