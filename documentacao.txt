@@ -62,6 +62,21 @@ entrada e saida para as portas 22,11,2049,80 e 443, com acesso ipv4 livre, ou se
 		se encontra o servidor nfs e qual pasta ele esta expontando, "/nfs_compartilhado/" indica 
 		o ponto de montagem local onde o sistema sera acessivel.
 		
-	Confirando o servidor apache.
+
+	Configurando o o servidor apache 
+
+	"yum install httpd"
+		Instala os repositórios do servidor apache no sistema do seu linux.
+	
+	"systemctl start httpd"
+		Inicia o servidor apache.
+
+	"systemctl enable httpd"
+		Usado para iniciar o servidor apache junto com o boot do sistema.
+	
+	onde se encontra o diretório www pra configuração da pagina web?
+		A pagina web que se encontra quando é pesquisado pelo ip da maquina no navegador pode
+	ser atualizada diretório "/var/www".
+
 	configurando o script.
 	subindo pro github o a documentação do projeto.
