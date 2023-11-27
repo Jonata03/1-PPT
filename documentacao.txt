@@ -12,7 +12,7 @@ entrada e saida para as portas 22,11,2049,80 e 443, com acesso ipv4 livre, ou se
 	
 	Obs:todos os comando a seguir foram feitos com o usuário root.
 	
-	Configuração do server-side NFS.
+Configuração do server-side NFS.
 	
 	yum update
 		Atualiza os pacotes do sistema.
@@ -52,7 +52,8 @@ entrada e saida para as portas 22,11,2049,80 e 443, com acesso ipv4 livre, ou se
 		Ativa o servidor toda vez que o sistema é iniciado.
 
 
-	configuração do client-side NFS.
+configuração do client-side NFS.
+
 	"mkdir /nfs_compartilhado"
 		Cria um diretorio com o nome de "nfs_compartilhado" nas pasta /
 
@@ -63,7 +64,7 @@ entrada e saida para as portas 22,11,2049,80 e 443, com acesso ipv4 livre, ou se
 		o ponto de montagem local onde o sistema sera acessivel.
 		
 
-	Configurando o o servidor apache 
+Configurando o o servidor apache 
 
 	"yum install httpd"
 		Instala os repositórios do servidor apache no sistema do seu linux.
@@ -78,5 +79,38 @@ entrada e saida para as portas 22,11,2049,80 e 443, com acesso ipv4 livre, ou se
 		A pagina web que se encontra quando é pesquisado pelo ip da maquina no navegador pode
 	ser atualizada diretório "/var/www".
 
-	configurando o script.
-	subindo pro github o a documentação do projeto.
+Desenvolvimento do Script de resposta ao status do servidor
+
+	"#!/bin/bash"
+		serve para mostrar que o script deve ser interpretado pelo bash, que é o shell de linha de comando.
+
+	"NFS_DIRETORIO="/nfs_server/jonata_nery""
+		Cria uma variável onde sera armazenado os arquivos de saida.
+
+	"SERVICO="httpd""
+		Cria uma variável atribuindo que tipo de serviço sera verificado o status.
+		
+	"STATUS=$(systemctl is-active $SERVICO)"
+		Cria e atribui a uma variável o status de ativo ou não a uma variável 
+	 
+	"if [ "$STATUS" = "active" ];then
+		mensagem="Online"
+		ARQUIVO_SAIDA="$NFS_DIRETORIO/${SERVICO}_online.txt"
+	else
+		mensagem="Offline"
+		ARQUIVO_SAIDA="$NFS_DIRETORIO/${SERVICO}_offline.txt"
+	fi"
+		verifica o estado da variável status,se o valor for "ativo", cria uma variável atribuindo uma string  
+		"online" e cria outra variável passando oque é o arquivo de saida pra o estado "online".
+		Caso o status não seja "active", É criada uma variável recebendo uma mensagem de "offline" e outra 
+		variável passando oque seria um arquivo de saída pra o estado de "offline"
+
+	"DATA_HORA=$(date +"%Y-%m-%d %H:%M:%S")"
+		atribui a uma variável a hora e data atual do local do servidor 
+
+		"echo "Data/Hora: $DATA_HORA" > "$ARQUIVO_SAIDA"
+		echo "Serviço: $SERVICO" >> "$ARQUIVO_SAIDA"
+		echo "Status: $STATUS" >> "$ARQUIVO_SAIDA"
+		echo "Mensagem: $mensagem" >> "$ARQUIVO_SAIDA""
+			Imprime no arquivo de saida que foi criado a hora e data que foi gerado o log, serviço que esta 
+			sendo verificado, o status do serviço, e uma mensagem de "online" ou "offline".
